@@ -1,35 +1,26 @@
-# AI Video Prompt Generator
+# Trình Tạo Prompt Video AI
 
-This application helps generate prompts for the Veo3 AI video platform using OpenAI's GPT models. It can also suggest example prompts for testing.
+Ứng dụng này hỗ trợ tạo prompt cho nền tảng Veo3 bằng cách sử dụng mô hình GPT của OpenAI (nếu có). Nếu không cài đặt `openai` hoặc không có API key, ứng dụng sẽ sử dụng mẫu prompt đơn giản.
 
-## Requirements
-
+## Yêu cầu
 - Python 3.8+
-- (Optional) `openai` Python package
-- (Optional) An OpenAI API key set in the `OPENAI_API_KEY` environment variable
+- (Tùy chọn) gói `openai`
+- (Tùy chọn) biến môi trường `OPENAI_API_KEY`
 
-Install optional dependencies:
+Cài đặt gói tùy chọn:
 ```bash
 pip install openai
 ```
 
-## Usage
+## Cách sử dụng
 
-Run the interactive prompt generator (English by default):
-
+Chạy ứng dụng:
 ```bash
-python prompt_app.py --lang en
+python prompt_app.py
 ```
 
-To use a Vietnamese interface:
+Ứng dụng sẽ liên tục hỏi bạn nhập chủ đề video cho tới khi bạn nhập `q` để thoát. Với mỗi chủ đề, ứng dụng tạo prompt và gợi ý một số prompt mẫu để thử ngay trên Veo3.
 
-```bash
-python prompt_app.py --lang vi
-```
+## Lưu ý
 
-The app will keep asking for topics until you type `q` to quit. For each topic, it generates a prompt and lists a few suggested prompts you can test directly in Veo3.
-
-## Disclaimer
-
-If the `openai` package or API key is missing, the app falls back to a simple prompt template.
-When available, the script calls the OpenAI API. If running inside a restricted environment without internet access, the API request will fail.
+Nếu thiếu gói `openai` hoặc API key, ứng dụng chỉ tạo prompt dự phòng. Khi có kết nối và API key, ứng dụng sẽ gọi OpenAI để sinh prompt chi tiết.
