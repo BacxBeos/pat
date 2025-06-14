@@ -5,10 +5,10 @@ This application helps generate prompts for the Veo3 AI video platform using Ope
 ## Requirements
 
 - Python 3.8+
-- `openai` Python package
-- An OpenAI API key set in the `OPENAI_API_KEY` environment variable
+- (Optional) `openai` Python package
+- (Optional) An OpenAI API key set in the `OPENAI_API_KEY` environment variable
 
-Install dependencies:
+Install optional dependencies:
 ```bash
 pip install openai
 ```
@@ -25,4 +25,5 @@ The app will keep asking for topics until you type `q` to quit. For each topic, 
 
 ## Disclaimer
 
-This script calls the OpenAI API. If running inside a restricted environment without internet access, the API request will fail.
+If the `openai` package or API key is missing, the app falls back to a simple prompt template.
+When available, the script calls the OpenAI API. If running inside a restricted environment without internet access, the API request will fail.

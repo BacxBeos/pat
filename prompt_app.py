@@ -2,37 +2,41 @@ import os
 
 try:
     import openai
-except ImportError as exc:
+except ImportError:
     openai = None
-    OPENAI_IMPORT_ERROR = exc
-else:
-    OPENAI_IMPORT_ERROR = None
+    print(
+        "Warning: 'openai' package is not installed. Using fallback prompt generation."
+    )
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-if openai is None:
-    raise ImportError(
-        "The 'openai' package is required. Install it with 'pip install openai'."
-    )
-
-if OPENAI_API_KEY:
-    openai.api_key = OPENAI_API_KEY
-else:
-    raise EnvironmentError(
-        "Please set the OPENAI_API_KEY environment variable to your OpenAI key"
-    )
+if openai is not None:
+    if OPENAI_API_KEY:
+        openai.api_key = OPENAI_API_KEY
+    else:
+        print(
+            "Warning: OPENAI_API_KEY not set. Falling back to simple prompt generation."
+        )
+        openai = None
 
 def generate_video_prompt(topic: str) -> str:
-    """Generate a video prompt for Veo3 using OpenAI GPT"""
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant specialized in writing video prompts for the Veo3 AI video platform."},
-            {"role": "user", "content": f"Create a detailed video prompt about {topic}."}
-        ],
-        max_tokens=150
-    )
-    return response.choices[0].message["content"].strip()
+    """Generate a video prompt using OpenAI if available."""
+    if openai is None:
+        return f"Create a Veo3 AI video about {topic}, focusing on key visuals and smooth transitions."
+
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant specialized in writing video prompts for the Veo3 AI video platform."},
+                {"role": "user", "content": f"Create a detailed video prompt about {topic}."}
+            ],
+            max_tokens=150,
+        )
+        return response.choices[0].message["content"].strip()
+    except Exception as exc:
+        print("Error contacting OpenAI:", exc)
+        return f"Create a Veo3 AI video about {topic}."
 
 def suggest_test_prompts() -> list:
     """Return a few example prompts users can test"""
