@@ -15,10 +15,16 @@ pip install openai
 
 ## Usage
 
-Run the interactive prompt generator:
+Run the interactive prompt generator (English by default):
 
 ```bash
-python prompt_app.py
+python prompt_app.py --lang en
+```
+
+To use a Vietnamese interface:
+
+```bash
+python prompt_app.py --lang vi
 ```
 
 The app will keep asking for topics until you type `q` to quit. For each topic, it generates a prompt and lists a few suggested prompts you can test directly in Veo3.
