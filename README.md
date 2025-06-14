@@ -15,13 +15,13 @@ pip install openai
 
 ## Usage
 
-Run the script and enter a topic when prompted:
+Run the interactive prompt generator:
 
 ```bash
 python prompt_app.py
 ```
 
-The script will generate a prompt for the given topic and display a few suggested prompts that you can try directly in Veo3.
+The app will keep asking for topics until you type `q` to quit. For each topic, it generates a prompt and lists a few suggested prompts you can test directly in Veo3.
 
 ## Disclaimer
 
